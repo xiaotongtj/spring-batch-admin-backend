@@ -11,6 +11,8 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * @author eric
+ * <p>
+ * 监听是用于回调的：：回调的时机就是容器初始化后
  */
 @Slf4j
 public class BuildTriggerListener implements SpringApplicationRunListener {
@@ -21,34 +23,28 @@ public class BuildTriggerListener implements SpringApplicationRunListener {
 
     @Override
     public void starting() {
-
-    }
-
-    @Override
-    public void running(ConfigurableApplicationContext context) {
-
-    }
-
-    @Override
-    public void failed(ConfigurableApplicationContext context, Throwable exception) {
-
+        //1
     }
 
     @Override
     public void environmentPrepared(ConfigurableEnvironment environment) {
+        //2
     }
 
     @Override
     public void contextPrepared(ConfigurableApplicationContext context) {
+        //3
     }
 
     @Override
     public void contextLoaded(ConfigurableApplicationContext context) {
+        //4
     }
 
+    //这个是容器启动之后
     @Override
     public void started(ConfigurableApplicationContext context) {
-
+        //5
         log.info("@@ batch server started @@");
 
         QuartzTriggerManager quartzTriggerManager = null;
@@ -70,5 +66,15 @@ public class BuildTriggerListener implements SpringApplicationRunListener {
         } catch (Exception e) {
             log.error("cannot initTriggers", e);
         }
+    }
+
+    @Override
+    public void running(ConfigurableApplicationContext context) {
+        //6
+    }
+
+    @Override
+    public void failed(ConfigurableApplicationContext context, Throwable exception) {
+
     }
 }

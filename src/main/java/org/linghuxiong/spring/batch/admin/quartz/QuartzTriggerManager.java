@@ -7,13 +7,11 @@ import org.linghuxiong.spring.batch.admin.model.JobEntity;
 import org.linghuxiong.spring.batch.admin.model.TriggerEntity;
 import org.linghuxiong.spring.batch.admin.util.QuartzUtil;
 import org.quartz.*;
-import org.quartz.impl.JobDetailImpl;
 import org.quartz.impl.calendar.HolidayCalendar;
 import org.quartz.impl.matchers.GroupMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +79,7 @@ public class QuartzTriggerManager {
     }
 
 
-
+    //Quartz 的 Calendar 专门用于屏闭一个时间区间，使 Trigger 在这个区间中不被触发。
     private void buildCalendars() throws Exception {
         HolidayCalendar cal = new HolidayCalendar();
         scheduler.addCalendar("default-holiday-calendar", cal, true, true);
